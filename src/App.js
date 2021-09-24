@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 
 import Home from './containers/Home';
 
-// import PrivateRoute from './components/PrivateRoute';
+import PrivateRoute from './components/PrivateRoute';
 import PublicRoute from './components/PublicRoute';
 
 import Loader from "react-loader-spinner";
@@ -48,6 +48,7 @@ function App() {
         <HashRouter basename='/'>
           <Switch>
             <PublicRoute path='/' exact restricted={true} component={Home} setLoggedIn={setLoggedIn} loggedIn={loggedIn}/>
+            <PrivateRoute path='/restaurants/' component={RestaurantIndex} />
           </Switch>
         </HashRouter>
       )
