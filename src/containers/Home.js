@@ -9,12 +9,17 @@ const Home = (props) => {
   const location = useLocation()
   const history = useHistory()
 
+  const { OneSignal, loggedIn, setLoggedIn } = props
+
   useEffect(() => {
     const queryParams = new URLSearchParams(location.search)
 
     if (queryParams.has('token')) {
-      const jwt = queryParams.get('token');
+      let jwt = queryParams.get('token');
+      let userId = queryParams.get('user_id');
+      console.log(queryParams)
       localStorage.setItem("jwt", jwt)
+      localStorage.setItem("userId", userId)
       props.setLoggedIn(true)
       queryParams.delete('token')
       history.replace({
@@ -25,7 +30,7 @@ const Home = (props) => {
 
     return(   
       <div className="Home">
-        {props.loggedIn ? <Redirect to="restaurants" /> : <Login setLoggedIn={props.setLoggedIn} />}
+        {loggedIn ? <Redirect to="restaurants" /> : <Login setLoggedIn={setLoggedIn} />}
       </div>
     )
   }
