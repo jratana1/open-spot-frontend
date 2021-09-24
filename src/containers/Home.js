@@ -14,7 +14,7 @@ const Home = (props) => {
 
     if (queryParams.has('token')) {
       const jwt = queryParams.get('token');
-      sessionStorage.setItem("jwt", jwt)
+      localStorage.setItem("jwt", jwt)
       props.setLoggedIn(true)
       queryParams.delete('token')
       history.replace({

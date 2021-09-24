@@ -14,15 +14,24 @@ import Grid from '@mui/material/Grid';
 export const BASE_URL = "http://localhost:3000/";
 
 function App() {
-  
+  window.OneSignal = window.OneSignal || [];
+  const OneSignal = window.OneSignal;
+
   const [isBusy, setBusy] = useState(true)
-  const [loggedIn, setLoggedIn] = useState(!!sessionStorage.jwt);
+  const [loggedIn, setLoggedIn] = useState(!!localStorage.jwt);
 
   useEffect(()=> {
       setBusy(false)
 
   }, [])
 
+  useEffect(() => {
+    OneSignal.push(() => {
+      OneSignal.init({
+        appId: "f4244a76-d8ad-4774-9e54-e0f48b8110ce"
+      })
+    });
+   },[]);
 
   const renderLoad = () => {
     if (isBusy) {

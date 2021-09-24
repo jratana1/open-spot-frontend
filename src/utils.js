@@ -1,5 +1,5 @@
 export const isLogin = () => {
     return (
-    sessionStorage.jwt ? true : false
+    localStorage.jwt ? true : false
     )
 }
