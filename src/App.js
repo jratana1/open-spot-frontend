@@ -3,6 +3,7 @@ import { HashRouter, Switch } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 
 import Home from './containers/Home';
+import Restaurants from './containers/Restaurants'
 
 import PrivateRoute from './components/PrivateRoute';
 import PublicRoute from './components/PublicRoute';
@@ -12,8 +13,8 @@ import Grid from '@mui/material/Grid';
 
 export const BASE_URL = "http://localhost:3000/";
 
-
 function App() {
+  
   const [isBusy, setBusy] = useState(true)
   const [loggedIn, setLoggedIn] = useState(!!sessionStorage.jwt);
 
@@ -21,6 +22,7 @@ function App() {
       setBusy(false)
 
   }, [])
+
 
   const renderLoad = () => {
     if (isBusy) {
@@ -48,7 +50,7 @@ function App() {
         <HashRouter basename='/'>
           <Switch>
             <PublicRoute path='/' exact restricted={true} component={Home} setLoggedIn={setLoggedIn} loggedIn={loggedIn}/>
-            <PrivateRoute path='/restaurants/' component={RestaurantIndex} />
+            <PrivateRoute path='/restaurants/' component={Restaurants} />
           </Switch>
         </HashRouter>
       )
