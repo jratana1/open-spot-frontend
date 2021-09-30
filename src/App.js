@@ -47,53 +47,22 @@ function App() {
   }, [])
 
   useEffect(() => {
-    OneSignal.push(function() {
-      OneSignal.on('subscriptionChange', function (isSubscribed) {
-        console.log("The user's subscription state is now:",isSubscribed);
-          OneSignal.push(function() {
-            OneSignal.getUserId(function(userId) {
-              console.log("OneSignal User ID:", userId);
-              getAuthHash().then(res => {
-                let externalUserId= localStorage.getItem("userId")
-                console.log(res)
-                OneSignal.setExternalUserId(externalUserId, res.hash)
-              })
+      OneSignal.push(function() {
+        OneSignal.on('subscriptionChange', function (isSubscribed) {
+          console.log("The user's subscription state is now:",isSubscribed);
+            OneSignal.push(function() {
+              OneSignal.getUserId(function(userId) {
+                console.log("OneSignal User ID:", userId);
+                getAuthHash().then(res => {
+                  let externalUserId= localStorage.getItem("userId")
+                  console.log(res)
+                  OneSignal.setExternalUserId(externalUserId, res.hash)
+                })
 
-            });
-          });
-          // if (isSubscribed) {
-          //   console.log("subscribed!")
-          //   let externalUserId= localStorage.getItem("userId")
-          //   getAuthHash()
-          //     .then(res => {
-          //       console.log(externalUserId)
-          //       console.log(res)
-          //       // OneSignal.setExternalUserId(externalUserId, res.hash)
-          //     })
-          // }
-          // else
-          //   console.log("not yet.")   
-
-
+              });
+            });  
         });
       });
-
-      // OneSignal.push(function() {
-      //   OneSignal.isPushNotificationsEnabled(function(isEnabled) {
-      //     if (isEnabled) {
-      //       console.log("Push notifications are enabled!")
-      //       let externalUserId= localStorage.getItem("userId")
-      //       getAuthHash()
-      //         .then(res => {
-      //           console.log(externalUserId)
-      //           console.log(res)
-      //           OneSignal.setExternalUserId(externalUserId, res.hash)
-      //         })
-      //     }
-      //     else
-      //       console.log("Push notifications are not enabled yet.")   
-      //   })
-      // })
 
     OneSignal.push(() => {
       OneSignal.init({
