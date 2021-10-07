@@ -33,7 +33,7 @@ export default function restCard(props) {
         <Button size="small" color="primary" onClick={makeTable}>
           CreateTable
         </Button>
-        <Button size="small" color="primary" onClick={handleLike}>
+        <Button size="small" color="primary" onClick={(e) => handleLike(e, restaurant.id, liked)}>
           {buttonText}
         </Button>
       </CardActions>

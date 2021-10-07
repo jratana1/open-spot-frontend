@@ -6,6 +6,8 @@ import Grid from '@mui/material/Grid';
 
 function Restaurants() {
 const [restaurants, setRestaurants] = useState([])
+const [likes, setLikes] = useState([])
+
 
 useEffect( () => {
         let config = {
@@ -24,13 +26,67 @@ useEffect( () => {
         .then(([restaurants, likes]) => ({ restaurants, likes }))
         .then((res) => {
              setRestaurants(res.restaurants)
+             setLikes(res.likes)
         })
         .catch((err) => {
             console.log(err);
         });
     }, [])
 
-    const handleLike = () => {
+    const handleLike = (e, index, liked) => {
+        // let config = {
+        //     method: 'GET',
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //         'Accept': 'application/json',
+        //         'Authorization': `Bearer ${localStorage.jwt}`
+        //     },
+        // }
+        
+        // fetch(BASE_URL+"likes", config)
+        //         .then(res => res.json())
+        //         .then(res => {
+        //         setLikes(res)
+        //         })
+            console.log(index)
+            console.log(liked)
+                    if (liked){
+                        let config = {
+                          method: 'DELETE',
+                          headers: {
+                              'Content-Type': 'application/json',
+                              'Accept': 'application/json',
+                              'Authorization': `Bearer ${localStorage.jwt}`
+                          },
+                          body: JSON.stringify({id: index})
+                      }
+                
+                        fetch(BASE_URL+"likes/"+index, config)
+                        .then(res => res.json())
+                        .then(res => {
+                        setLikes(res)
+                        })
+                      }
+                      else{
+                        let config = {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Accept': 'application/json',
+                                'Authorization': `Bearer ${localStorage.jwt}`
+                            },
+                            body: JSON.stringify({id: index})
+                        }
+                
+                        fetch(BASE_URL+"likes/", config)
+                        .then(res => res.json())
+                        .then(res => {
+                        setLikes(res)
+                        })
+                      }
+    }
+
+    const makeTable = () => {
         let config = {
             method: 'GET',
             headers: {
@@ -49,9 +105,10 @@ useEffect( () => {
 
 
     const renderCards = restaurants.map((restaurant) => {
+        let liked = likes.some(like => like.restaurant_id === restaurant.id)
                     return (
                             <Grid item xs={12} sm={6} md={3} key={restaurant.id}>
-                                <RestCard liked={true} handleLike={handleLike} restaurant={restaurant}></RestCard>
+                                <RestCard liked={liked} makeTable={makeTable} handleLike={handleLike} restaurant={restaurant}></RestCard>
                             </Grid>
                     )
                 }) ;
