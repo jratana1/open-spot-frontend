@@ -34,22 +34,6 @@ useEffect( () => {
     }, [])
 
     const handleLike = (e, index, liked) => {
-        // let config = {
-        //     method: 'GET',
-        //     headers: {
-        //         'Content-Type': 'application/json',
-        //         'Accept': 'application/json',
-        //         'Authorization': `Bearer ${localStorage.jwt}`
-        //     },
-        // }
-        
-        // fetch(BASE_URL+"likes", config)
-        //         .then(res => res.json())
-        //         .then(res => {
-        //         setLikes(res)
-        //         })
-            console.log(index)
-            console.log(liked)
                     if (liked){
                         let config = {
                           method: 'DELETE',
@@ -86,20 +70,21 @@ useEffect( () => {
                       }
     }
 
-    const makeTable = () => {
+    const makeTable = (e, index) => {
         let config = {
-            method: 'GET',
+            method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
                 'Authorization': `Bearer ${localStorage.jwt}`
             },
+            body: JSON.stringify({id: index})
         }
         
-        fetch(BASE_URL+"likes", config)
+        fetch(BASE_URL+"tables", config)
                 .then(res => res.json())
                 .then(res => {
-                setRestaurants(res)
+                console.log(res)
                 })
     }
 
