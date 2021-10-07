@@ -16,13 +16,18 @@ useEffect( () => {
                 'Authorization': `Bearer ${localStorage.jwt}`
             },
         }
-        
-        fetch(BASE_URL+"restaurants", config)
-                .then(res => res.json())
-                .then(res => {
-                setRestaurants(res)
-                })
 
+        Promise.all([
+            fetch(BASE_URL+"restaurants", config).then(res => res.json()),
+            fetch(BASE_URL+"likes", config).then(res => res.json())
+        ])
+        .then(([restaurants, likes]) => ({ restaurants, likes }))
+        .then((res) => {
+             setRestaurants(res.restaurants)
+        })
+        .catch((err) => {
+            console.log(err);
+        });
     }, [])
 
     const handleLike = () => {
