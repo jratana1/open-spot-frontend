@@ -25,11 +25,28 @@ useEffect( () => {
 
     }, [])
 
+    const handleLike = () => {
+        let config = {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'Authorization': `Bearer ${localStorage.jwt}`
+            },
+        }
+        
+        fetch(BASE_URL+"likes", config)
+                .then(res => res.json())
+                .then(res => {
+                setRestaurants(res)
+                })
+    }
+
 
     const renderCards = restaurants.map((restaurant) => {
                     return (
                             <Grid item xs={12} sm={6} md={3} key={restaurant.id}>
-                                <RestCard restaurant={restaurant}></RestCard>
+                                <RestCard liked={true} handleLike={handleLike} restaurant={restaurant}></RestCard>
                             </Grid>
                     )
                 }) ;
