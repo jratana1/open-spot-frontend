@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import RestCard from '../components/RestCard'
+import FormDialog from '../components/TableDialog'
+
 import { BASE_URL } from '../App'
 
 import Grid from '@mui/material/Grid';
@@ -7,6 +9,8 @@ import Grid from '@mui/material/Grid';
 function Restaurants() {
 const [restaurants, setRestaurants] = useState([])
 const [likes, setLikes] = useState([])
+const [open, setOpen] = useState(false);
+
 
 
 useEffect( () => {
@@ -88,12 +92,19 @@ useEffect( () => {
                 })
     }
 
+    const handleClickOpen = () => {
+        setOpen(true);
+      };
+    
+    const handleClose = () => {
+        setOpen(false);
+    };
 
     const renderCards = restaurants.map((restaurant) => {
         let liked = likes.some(like => like.restaurant_id === restaurant.id)
                     return (
                             <Grid item xs={12} sm={6} md={3} key={restaurant.id}>
-                                <RestCard liked={liked} makeTable={makeTable} handleLike={handleLike} restaurant={restaurant}></RestCard>
+                                <RestCard liked={liked} handleClickOpen={handleClickOpen} makeTable={makeTable} handleLike={handleLike} restaurant={restaurant}></RestCard>
                             </Grid>
                     )
                 }) ;
@@ -103,6 +114,7 @@ useEffect( () => {
             <Grid container alignItems="stretch" spacing={4} sx={{ p: 1 }}>
                 {renderCards}
             </Grid>
+            <FormDialog open={open} handleClose= {handleClose}></FormDialog>
         </div>
     )
 }
