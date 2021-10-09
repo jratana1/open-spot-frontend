@@ -114,7 +114,7 @@ useEffect( () => {
             <Grid container alignItems="stretch" spacing={4} sx={{ p: 1 }}>
                 {renderCards}
             </Grid>
-            <FormDialog open={open} handleClose= {handleClose}></FormDialog>
+            <FormDialog open={open} handleClose= {handleClose} makeTable={makeTable}></FormDialog>
         </div>
     )
 }

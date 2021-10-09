@@ -8,7 +8,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
 export default function FormDialog(props) {
- const { open, handleClose } = props 
+ const { open, handleClose, makeTable } = props 
   return (
     <div>
       <Dialog open={open} onClose={handleClose}>
@@ -30,7 +30,7 @@ export default function FormDialog(props) {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleClose}>Subscribe</Button>
+          <Button onClick={makeTable}>Make Table</Button>
         </DialogActions>
       </Dialog>
     </div>
