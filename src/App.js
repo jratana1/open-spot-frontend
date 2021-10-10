@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 
 import Home from './containers/Home';
 import Restaurants from './containers/Restaurants'
+import Checkout from './containers/Checkout'
 
 import PrivateRoute from './components/PrivateRoute';
 import PublicRoute from './components/PublicRoute';
@@ -98,6 +99,7 @@ function App() {
           <Switch>
             <PublicRoute path='/' exact restricted={true} component={Home} OneSignal={OneSignal} setLoggedIn={setLoggedIn} loggedIn={loggedIn}/>
             <PrivateRoute path='/restaurants/' component={Restaurants} />
+            <PrivateRoute path='/checkout/:id' component={Checkout} />
           </Switch>
         </HashRouter>
       )
