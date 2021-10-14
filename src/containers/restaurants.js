@@ -10,6 +10,7 @@ function Restaurants() {
 const [restaurants, setRestaurants] = useState([])
 const [likes, setLikes] = useState([])
 const [open, setOpen] = useState(false);
+const [modalId, setModalId] = useState()
 
 
 
@@ -88,12 +89,15 @@ useEffect( () => {
         fetch(BASE_URL+"tables", config)
                 .then(res => res.json())
                 .then(res => {
+                setOpen(false);
                 console.log(res)
                 })
     }
 
-    const handleClickOpen = () => {
+    const handleClickOpen = (e,restaurantId) => {
+        console.log(e.currentTarget)
         setOpen(true);
+        setModalId(restaurantId)
       };
     
     const handleClose = () => {
@@ -114,7 +118,7 @@ useEffect( () => {
             <Grid container alignItems="stretch" spacing={4} sx={{ p: 1 }}>
                 {renderCards}
             </Grid>
-            <FormDialog open={open} handleClose= {handleClose} makeTable={makeTable}></FormDialog>
+            <FormDialog modalId={modalId} open={open} handleClose= {handleClose} makeTable={makeTable}></FormDialog>
         </div>
     )
 }

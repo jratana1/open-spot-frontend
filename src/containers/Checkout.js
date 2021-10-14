@@ -3,6 +3,9 @@ import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import Loader from "react-loader-spinner";
 
+import { BASE_URL } from '../App'
+
+
 
 const Checkout = () => {
     const { id } = useParams()
@@ -21,6 +24,8 @@ const Checkout = () => {
     fetch(BASE_URL+"checkout/", config)
     .then(res => res.json())
     .then(res => {
+        console.log(res)
+        window.location.href = res.checkoutURL
     })
     
   }, [])

@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography';
 import { Button, CardActionArea, CardActions } from '@mui/material';
 
 export default function restCard(props) {
-  const { makeTable, handleLike, restaurant, liked, handleClickOpen}= props
+  const { handleLike, restaurant, liked, handleClickOpen}= props
   const buttonText = liked ? "Unlike" : "Like";
   return (
     <Card sx={{ maxWidth: 400, height: 1, justifyContent: "space-between", display: "flex", flexDirection: "column" }} id={restaurant.id}>
@@ -31,7 +31,7 @@ export default function restCard(props) {
       </CardActionArea>
       <CardActions>
         {/* <Button size="small" color="primary" onClick={(e) => makeTable(e, restaurant.id)}> */}
-        <Button size="small" color="primary" onClick={handleClickOpen}>
+        <Button size="small" color="primary" onClick={(e) => handleClickOpen(e, restaurant.id)}>
           CreateTable
         </Button>
         <Button size="small" color="primary" onClick={(e) => handleLike(e, restaurant.id, liked)}>
