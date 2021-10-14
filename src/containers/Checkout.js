@@ -24,7 +24,6 @@ const Checkout = () => {
     fetch(BASE_URL+"checkout/", config)
     .then(res => res.json())
     .then(res => {
-        console.log(res)
         window.location.href = res.checkoutURL
     })
     
