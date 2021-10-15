@@ -10,7 +10,7 @@ function Restaurants() {
 const [restaurants, setRestaurants] = useState([])
 const [likes, setLikes] = useState([])
 const [open, setOpen] = useState(false);
-const [modalId, setModalId] = useState()
+const [modalRestaurant, setModalRestaurant] = useState("")
 
 
 
@@ -75,7 +75,7 @@ useEffect( () => {
                       }
     }
 
-    const makeTable = (e, index) => {
+    const makeTable = (e, restaurant) => {
         let config = {
             method: 'POST',
             headers: {
@@ -83,7 +83,7 @@ useEffect( () => {
                 'Accept': 'application/json',
                 'Authorization': `Bearer ${localStorage.jwt}`
             },
-            body: JSON.stringify({id: index})
+            body: JSON.stringify({id: restaurant.id})
         }
         
         fetch(BASE_URL+"tables", config)
@@ -94,10 +94,9 @@ useEffect( () => {
                 })
     }
 
-    const handleClickOpen = (e,restaurantId) => {
-        console.log(e.currentTarget)
+    const handleClickOpen = (e,restaurant) => {
         setOpen(true);
-        setModalId(restaurantId)
+        setModalRestaurant(restaurant)
       };
     
     const handleClose = () => {
@@ -118,7 +117,7 @@ useEffect( () => {
             <Grid container alignItems="stretch" spacing={4} sx={{ p: 1 }}>
                 {renderCards}
             </Grid>
-            <FormDialog modalId={modalId} open={open} handleClose= {handleClose} makeTable={makeTable}></FormDialog>
+            <FormDialog modalRestaurant={modalRestaurant} open={open} handleClose= {handleClose} makeTable={makeTable}></FormDialog>
         </div>
     )
 }
