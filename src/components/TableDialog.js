@@ -16,13 +16,14 @@ import Select from '@mui/material/Select';
 import DateAdapter from '@mui/lab/AdapterLuxon';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import TimePicker from '@mui/lab/TimePicker';
+import DateTimePicker from '@mui/lab/DateTimePicker';
+
+import { DateTime } from "luxon";
 
 export default function FormDialog(props) {
  const { open, handleClose, makeTable, modalRestaurant} = props 
 
- const [table, setTable] = useState({seats: 2, time: new Date('2014-08-18T21:11:54')});
-//  const [value, setValue] = useState(new Date('2014-08-18T21:11:54'));
-
+ const [table, setTable] = useState({seats: 2, dateTime: DateTime.now() });
 
  const handleChange = (event) => {
    setTable({...table, seats: event.target.value});
@@ -31,7 +32,7 @@ export default function FormDialog(props) {
  const seatOptions = (n) => {
      let seatOptions = []
         for (let i = 0; i < n; i++) {
-            seatOptions.push(<MenuItem value={i+1}>{i+1}</MenuItem>)
+            seatOptions.push(<MenuItem key= {i} value={i+1}>{i+1}</MenuItem>)
         }
      return seatOptions
  }
@@ -51,13 +52,14 @@ export default function FormDialog(props) {
             Please Select a Time and Table Size
           </DialogContentText>
           <LocalizationProvider dateAdapter={DateAdapter}>
-            <TimePicker
-                label="Seat Time"
-                value={table.time}
-                onChange={(newValue) => {
-                setTable({...table, time: newValue});
+            <DateTimePicker
+                label="Table Day/Time"
+                value={table.dateTime}
+                onChange={(newDateTime) => {
+                setTable({...table, dateTime: newDateTime});
                 }}
                 renderInput={(params) => <TextField {...params} />}
+                minutesStep = {5}
             />
             </LocalizationProvider>
             <FormControl fullWidth>
@@ -76,7 +78,7 @@ export default function FormDialog(props) {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={(e) => makeTable(e, modalRestaurant)}>Make Table</Button>
+          <Button onClick={(e) => makeTable(e, modalRestaurant, table)}>Make Table</Button>
         </DialogActions>
         </Box>
       </Dialog>

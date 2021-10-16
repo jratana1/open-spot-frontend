@@ -75,7 +75,9 @@ useEffect( () => {
                       }
     }
 
-    const makeTable = (e, restaurant) => {
+    const makeTable = (e, restaurant, table) => {
+        table.dateTime = table.dateTime.toUTC()
+
         let config = {
             method: 'POST',
             headers: {
@@ -83,14 +85,13 @@ useEffect( () => {
                 'Accept': 'application/json',
                 'Authorization': `Bearer ${localStorage.jwt}`
             },
-            body: JSON.stringify({id: restaurant.id})
+            body: JSON.stringify({id: restaurant.id, table: table})
         }
         
         fetch(BASE_URL+"tables", config)
                 .then(res => res.json())
                 .then(res => {
                 setOpen(false);
-                console.log(res)
                 })
     }
 
